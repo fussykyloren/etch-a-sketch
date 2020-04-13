@@ -25,12 +25,6 @@ function createGrid(numCells = 16) {
     });
 }
 
-/*function resizeGrid() {
-    let numCells = prompt("How many squares should be on each row of the grid?");
-    numCellsInt = parseInt(numCells);
-    createGrid(numCellsInt);
-}*/
-
 function randomColor() {
     let color = [];
     
@@ -42,11 +36,25 @@ function randomColor() {
     return rgb;
 }
 
+function clearGrid() {
+    const cells = document.getElementsByClassName("cell");
+    const cellsArray = Array.from(cells);
+    cellsArray.forEach(function(cell) {
+        cell.style.backgroundColor = "darkgray";
+    });
+}
+
 resizeButton.addEventListener("click", () => {
-    let numCells = prompt("How many squares should be on each row of the grid?");
-    numCellsInt = parseInt(numCells);
+    let numCells = prompt("How many squares should be on each row of the grid? Value must be between 1 and 56");
+    let numCellsInt = parseInt(numCells);
+    while (numCellsInt < 1 || numCellsInt > 56) {
+        numCells = prompt("How many squares should be on each row of the grid? Value must be between 1 and 56");
+        numCellsInt = parseInt(numCells);
+    }
+    clearGrid();
     createGrid(numCellsInt);
 });
+
 rgbButton.addEventListener("click", () => {
     const cells = document.getElementsByClassName("cell");
     const cellsArray = Array.from(cells);
@@ -78,11 +86,7 @@ eraseButton.addEventListener("click", () => {
 });
 
 clearButton.addEventListener("click", () => {
-    const cells = document.getElementsByClassName("cell");
-    const cellsArray = Array.from(cells);
-    cellsArray.forEach(function(cell) {
-        cell.style.backgroundColor = "darkgray";
-    })
+    clearGrid();
 });
 
 createGrid();
